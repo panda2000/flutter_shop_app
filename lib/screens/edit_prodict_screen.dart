@@ -3,6 +3,7 @@ import 'package:intl/date_symbols.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/product.dart';
+import '../providers/products.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const String routeName = "/edit-product";
@@ -56,11 +57,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     final isValid = _form.currentState.validate();
     if (isValid) {
       _form.currentState.save();
-      print(_editedProduct.id);
-      print(_editedProduct.title);
-      print(_editedProduct.price);
-      print(_editedProduct.description);
-      print(_editedProduct.imageUrl);
+      Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+      Navigator.of(context).pop();
     }
   }
 
