@@ -53,12 +53,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm () {
-    _form.currentState.save();
-    print (_editedProduct.id);
-    print (_editedProduct.title);
-    print (_editedProduct.price);
-    print (_editedProduct.description);
-    print (_editedProduct.imageUrl);
+    final isValid = _form.currentState.validate();
+    if (isValid) {
+      _form.currentState.save();
+      print(_editedProduct.id);
+      print(_editedProduct.title);
+      print(_editedProduct.price);
+      print(_editedProduct.description);
+      print(_editedProduct.imageUrl);
+    }
   }
 
   @override
@@ -87,6 +90,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
+                validator: (value) {
+                  if (value.isEmpty){
+                    return 'Please provide a value.';
+                  }
+                  return null;
+                },
                 onSaved: (value) {
                   _editedProduct = Product(
                     id: _editedProduct.id,
@@ -104,6 +113,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 focusNode: _priceFocusNode,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
+                },
+                validator: (value) {
+                  if (value.isEmpty){
+                    return 'Please enter a price.';
+                  }
+                  if (double.tryParse(value) == null){
+                    return 'Please enter a price number.';
+                  }
+                  if (double.parse(value) <= 0){
+                    return 'Please enter a price grate than zero';
+                  }
+                  return null;
+
                 },
                 onSaved: (value) {
                   _editedProduct = Product(
@@ -128,6 +150,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     description: value,
                     imageUrl: _editedProduct.imageUrl,
                   );
+                },
+                validator: (value) {
+                  if (value.isEmpty){
+                    return 'Please enter a description.';
+                  }
+                  if (value.length < 10){
+                    return 'Should be at least 10 characters long.';
+                  }
+                  return null;
                 },
               ),
               Row(
@@ -166,6 +197,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         description: _editedProduct.description,
                         imageUrl: value,
                       );
+                    },
+                    validator: (value) {
+                      if (value.isEmpty){
+                        return 'Please enter a URL.';
+                      }
+                      if (!value.startsWith('http') && !value.startsWith('https') ){
+                        return 'Please enter a valid URL.';
+                      }
+                      return null;
                     },
                   ),
                 )
