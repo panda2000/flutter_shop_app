@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import './product.dart';
 
 class Products with ChangeNotifier {
-  List<Product> _items = [
+  List<Product> _items = [];
+  /*
     Product(
       id: 'p1',
       title: 'Red Shirt',
@@ -40,6 +41,7 @@ class Products with ChangeNotifier {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
   ];
+   */
   // var _showFavoritesOnly = false;
 
   List<Product> get items {
@@ -121,11 +123,24 @@ class Products with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, Product newProduct) {
+  Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
-      _items[prodIndex] = newProduct;
-      notifyListeners();
+      final url = 'https://shop-app-fdbbb.firebaseio.com/products/$id.json';
+
+      try {
+        await http.patch(url, body: json.encode({
+          'title' : newProduct.title ,
+          'description' : newProduct.description,
+          'imageUrl' : newProduct.imageUrl,
+          'price': newProduct.price,
+        }));
+        _items[prodIndex] = newProduct;
+        notifyListeners();
+      } catch (error) {
+        throw error;
+      }
+
     } else {
       print('...');
     }
