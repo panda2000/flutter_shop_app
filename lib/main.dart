@@ -9,6 +9,7 @@ import './screens/cart_screen.dart';
 import './screens/orders_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_prodict_screen.dart';
+import './screens/auth-screen.dart';
 
 import './providers/products.dart';
 import './providers/cart.dart';
@@ -34,13 +35,15 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.deepOrange,
           backgroundColor: Colors.white70,
         ),
-        home: ProductsOverviewScreen(),
+        //home: ProductsOverviewScreen(),
         routes: {
+          "/": (ctx) =>  AuthScreen(),
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           UserProductsScreen.routeName: (ctx) => UserProductsScreen (),
           EditProductScreen.routeName: (ctx) => EditProductScreen(),
+          AuthScreen.routeName: (ctx) => AuthScreen(),
         },
       ),
     );
