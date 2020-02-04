@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/products_overview_screen.dart';
+
 import '../providers/auth.dart';
 import '../models/http_exception.dart';
 
@@ -141,6 +143,7 @@ class _AuthCardState extends State<AuthCard> {
         // Sign user up
         final responese = await Provider.of<Auth>(context,listen: false).singup(_authData['email'], _authData['password']);
       }
+
     } on HttpException catch (error) {
       var errorMessage = 'Authentication faled';
       //switch (error.toString()){
