@@ -23,6 +23,10 @@ class Auth with ChangeNotifier {
     return null;
   }
 
+  String get userId {
+    return _userId;
+  }
+
   Future <void> _authenticate(String email, String password, String urlSegment) async {
     final url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/$urlSegment?key=AIzaSyDV-72CIbq7z7iPpH68bHQw-4crF4mp6r0";
     try{
@@ -52,5 +56,12 @@ class Auth with ChangeNotifier {
 
   Future <void> login (String email, String password) async {
     return _authenticate(email, password, 'verifyPassword');
+  }
+
+  Future <void> logout () async {
+    _token = null;
+    _userId = null;
+    _expiryDate = null;
+    notifyListeners();
   }
 }
