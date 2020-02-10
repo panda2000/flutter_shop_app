@@ -28,10 +28,13 @@ class ProductItem extends StatelessWidget {
               arguments: product.id,
             );
           },
-          child: FadeInImage(
-            placeholder: AssetImage('assets/images/product_placeholder.png'),
-            image: NetworkImage(product.imageUrl),
-          ),
+          child: Hero(
+            tag: product.id,
+            child:FadeInImage(
+              placeholder: AssetImage('assets/images/product_placeholder.png'),
+              image: NetworkImage(product.imageUrl),
+            ),
+          ) ,
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
