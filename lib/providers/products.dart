@@ -40,6 +40,7 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
+<<<<<<< HEAD
   Future<void> fatchAndSetProduct ([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorID"&equalTo=$userId' : '';
     var url = 'https://shop-app-fdbbb.firebaseio.com/products.json?auth=$authToken&$filterString';
@@ -77,13 +78,23 @@ class Products with ChangeNotifier {
     try{
       final response = await http
           .post(
+=======
+  Future<void> addProduct(Product product) async {
+    const url = 'https://flutter-update.firebaseio.com/products';//.json';
+    try {
+      final response = await http.post(
+>>>>>>> 90fba69639354a4e1dc54d490fdd236d014ac3fc
         url,
         body: json.encode({
           'title': product.title,
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
+<<<<<<< HEAD
           'creatorId':userId,
+=======
+          'isFavorite': product.isFavorite,
+>>>>>>> 90fba69639354a4e1dc54d490fdd236d014ac3fc
         }),
       );
 
@@ -101,6 +112,10 @@ class Products with ChangeNotifier {
       print(error);
       throw error;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 90fba69639354a4e1dc54d490fdd236d014ac3fc
   }
 
   Future<void> updateProduct(String id, Product newProduct) async {

@@ -83,7 +83,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
+<<<<<<< HEAD
   void _saveForm() async {
+=======
+  Future <void> _saveForm() async {
+>>>>>>> 90fba69639354a4e1dc54d490fdd236d014ac3fc
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
@@ -114,6 +118,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ],
               ),
         );
+<<<<<<< HEAD
       }
     }
 
@@ -121,6 +126,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = false;
     });
     Navigator.of(context).pop();
+=======
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pop();
+      }
+    }
+
+>>>>>>> 90fba69639354a4e1dc54d490fdd236d014ac3fc
   }
 
   @override
